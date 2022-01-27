@@ -1,13 +1,14 @@
 package com.example.employeebookweb.service;
 
-import com.example.employeebookweb.exceptions.EmployeeBookOverFlowException;
+import com.example.employeebookweb.exceptions.EmployeeExistException;
 import com.example.employeebookweb.exceptions.EmployeeNotFoundException;
+import com.example.employeebookweb.model.Employee;
 
 public interface EmployeeService {
 
-    void  addEmployee(String firstName, String lastName) throws EmployeeBookOverFlowException;
+    boolean addEmployee(String firstName, String lastName) throws EmployeeExistException;
 
-    void removeEmployee(String firstName, String lastName) throws EmployeeNotFoundException;
+    boolean removeEmployee(String firstName, String lastName) throws EmployeeNotFoundException;
 
     Employee findEmployee(String firstName, String lastName) throws EmployeeNotFoundException;
 

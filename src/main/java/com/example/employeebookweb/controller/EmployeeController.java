@@ -1,6 +1,6 @@
 package com.example.employeebookweb.controller;
 
-import com.example.employeebookweb.service.Employee;
+import com.example.employeebookweb.model.Employee;
 import com.example.employeebookweb.service.EmployeeService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

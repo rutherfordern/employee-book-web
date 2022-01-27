@@ -1,40 +1,46 @@
 package com.example.employeebookweb.service;
 
-import com.example.employeebookweb.exceptions.EmployeeBookOverFlowException;
+import com.example.employeebookweb.exceptions.EmployeeExistException;
 import com.example.employeebookweb.exceptions.EmployeeNotFoundException;
+import com.example.employeebookweb.model.Employee;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
-    Employee[] employee = new Employee[4];
+    List<Employee> employee = new ArrayList<>();
+
 
     @Override
-    public void addEmployee(String firstName, String lastName) {
-        for (int i = 0; i < employee.length; i++) {
-            if (employee[i] == null) {
-                employee[i] = new Employee(firstName, lastName);
-                return;
-            }
+    public boolean addEmployee(String firstName, String lastName) {
+        Employee testEmployee = new Employee(firstName, lastName);
+
+        if (employee.contains(testEmployee)) {
+            throw new EmployeeExistException();
         }
-        throw new EmployeeBookOverFlowException();
+        return employee.add(new Employee(firstName, lastName));
     }
 
     @Override
-    public void removeEmployee(String firstName, String lastName) {
-        for (int i = 0; i < employee.length; i++) {
-            if (employee[i].getFirstName().equals(firstName) && employee[i].getLastName().equals(lastName)) {
-                employee[i] = null;
-                return;
-            }
+    public boolean removeEmployee(String firstName, String lastName) {
+        Employee testEmployee = new Employee(firstName, lastName);
+
+        if (employee.contains(testEmployee)) {
+            return employee.remove(testEmployee);
         }
         throw new EmployeeNotFoundException();
     }
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
+
+        Employee testEmployee = new Employee(firstName, lastName);
+
         for (Employee valueEmployee : employee) {
-            if (firstName.equals(valueEmployee.getFirstName()) && lastName.equals(valueEmployee.getLastName())) {
+            if (valueEmployee.equals(testEmployee)) {
                 return valueEmployee;
             }
         }
