@@ -1,4 +1,4 @@
-package com.example.employeebookweb.service;
+package com.example.employeebookweb.model;
 
 import java.util.Objects;
 

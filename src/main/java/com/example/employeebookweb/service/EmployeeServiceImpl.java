@@ -2,6 +2,7 @@ package com.example.employeebookweb.service;
 
 import com.example.employeebookweb.exceptions.EmployeeExistException;
 import com.example.employeebookweb.exceptions.EmployeeNotFoundException;
+import com.example.employeebookweb.model.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

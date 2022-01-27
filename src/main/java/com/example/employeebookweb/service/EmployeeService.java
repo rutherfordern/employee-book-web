@@ -2,8 +2,7 @@ package com.example.employeebookweb.service;
 
 import com.example.employeebookweb.exceptions.EmployeeExistException;
 import com.example.employeebookweb.exceptions.EmployeeNotFoundException;
-
-import java.util.List;
+import com.example.employeebookweb.model.Employee;
 
 public interface EmployeeService {
 
