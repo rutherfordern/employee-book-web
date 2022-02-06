@@ -5,31 +5,39 @@ import com.example.employeebookweb.exceptions.EmployeeNotFoundException;
 import com.example.employeebookweb.model.Employee;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
-    List<Employee> employee = new ArrayList<>();
+    Map<String, Employee> employees = new HashMap<>();
 
 
     @Override
     public boolean addEmployee(String firstName, String lastName) {
         Employee testEmployee = new Employee(firstName, lastName);
 
-        if (employee.contains(testEmployee)) {
+        String employeeKey = firstName + " " + lastName;
+
+        if (employees.containsKey(employeeKey)) {
             throw new EmployeeExistException();
+        } else {
+            employees.put(employeeKey, testEmployee);
+            return true;
         }
-        return employee.add(new Employee(firstName, lastName));
     }
 
     @Override
     public boolean removeEmployee(String firstName, String lastName) {
         Employee testEmployee = new Employee(firstName, lastName);
 
-        if (employee.contains(testEmployee)) {
-            return employee.remove(testEmployee);
+        String employeeKey = firstName + " " + lastName;
+
+        if (employees.containsKey(employeeKey)) {
+            employees.remove(employeeKey);
+            return true;
         }
         throw new EmployeeNotFoundException();
     }
@@ -37,12 +45,10 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public Employee findEmployee(String firstName, String lastName) {
 
-        Employee testEmployee = new Employee(firstName, lastName);
+        String employeeKey = firstName + " " + lastName;
 
-        for (Employee valueEmployee : employee) {
-            if (valueEmployee.equals(testEmployee)) {
-                return valueEmployee;
-            }
+        if (employees.containsKey(employeeKey)) {
+            return employees.get(employeeKey);
         }
         throw new EmployeeNotFoundException();
     }
